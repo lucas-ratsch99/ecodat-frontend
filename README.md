@@ -96,6 +96,3 @@ npm run dev
 - Dark sidebar navigation
 - Inter font for UI, JetBrains Mono for code/data
 - Material Design 3 aesthetic
-
-## Recent Changes
-- 2026-03-03: Replaced all mock data with real backend API integration. Updated types to snake_case. Removed mock data files. Express dev routes match Python backend URL structure.
