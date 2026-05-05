@@ -1,7 +1,7 @@
 import type {
   Project, Job, Artifact, QCFlag,
   AOProject, Employee, ReportRequest, PreviewResponse, GenerateResponse,
-  GrippFilesGrouped,
+  GrippFilesGrouped, SnippetOption,
 } from '@/types';
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL || '';
@@ -106,8 +106,14 @@ export const api = {
                        request('/ao-report/generate', { method: 'POST', body: JSON.stringify(req) }),
     downloadUrl:     (artifactId: string): string =>
                        `${API_BASE}/ao-report/download/${artifactId}`,
-    invalidateCache: (): Promise<{ detail: string }> =>
-                       request('/ao-report/cache/invalidate', { method: 'DELETE' }),
+    invalidateCache:       (): Promise<{ detail: string }> =>
+                             request('/ao-report/cache/invalidate', { method: 'DELETE' }),
+    listOmgevingSnippets:  (): Promise<SnippetOption[]> =>
+                             request('/ao-report/snippets/omgeving'),
+    listIngreepSnippets:   (): Promise<SnippetOption[]> =>
+                             request('/ao-report/snippets/ingreep'),
+    getEcopotentiesSample: (): Promise<{ sample: string }> =>
+                             request('/ao-report/snippets/ecopotenties-sample'),
   },
 
   grippAdmin: {

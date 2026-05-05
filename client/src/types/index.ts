@@ -88,6 +88,16 @@ export interface ReportRequest {
   qs_rapport_bedrijf?: string | null;
   qs_rapport_datum?: string | null;
   species_vrijstelling_provincie?: string | null;
+  omgeving_key?: string | null;
+  omgeving_custom?: string | null;
+  ingreep_key?: string | null;
+  ingreep_custom?: string | null;
+}
+
+export interface SnippetOption {
+  key: string;
+  preview: string;
+  text: string;
 }
 
 export interface PreviewResponse {
