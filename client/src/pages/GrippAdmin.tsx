@@ -9,10 +9,10 @@ import { useToast } from '@/hooks/use-toast';
 import { Database, Trash2, Upload, CheckCircle2, XCircle, FileSpreadsheet } from 'lucide-react';
 
 const FILE_CATEGORIES: { key: keyof GrippFilesGrouped; label: string; hint: string }[] = [
-  { key: 'project_info',    label: 'Project info',    hint: 'project_info_*.csv' },
-  { key: 'client_company',  label: 'Client company',  hint: 'client_company_*.csv' },
-  { key: 'client_contact',  label: 'Client contact',  hint: 'client_contact_*.csv' },
-  { key: 'employees',       label: 'Employees',        hint: 'employees_*.csv' },
+  { key: 'project_info',    label: 'Project info',    hint: 'Gripp_ProjectInfo_*.csv' },
+  { key: 'client_company',  label: 'Client company',  hint: 'Gripp_ClientCompany_*.csv' },
+  { key: 'client_contact',  label: 'Client contact',  hint: 'Gripp_ClientContact_*.csv' },
+  { key: 'employees',       label: 'Employees',       hint: 'Gripp_EcodatEmployees_*.csv' },
 ];
 
 export default function GrippAdmin() {
