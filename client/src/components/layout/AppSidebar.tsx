@@ -21,6 +21,7 @@ import {
   FileText,
   Settings,
   Leaf,
+  Database,
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
@@ -32,6 +33,8 @@ const mainNavItems = [
 ];
 
 const analysisNavItems = [
+  { title: 'AO Report', url: '/ao-report', icon: FileText },
+  { title: 'Gripp Data', url: '/gripp-admin', icon: Database },
   { title: 'Reports', url: '/reports', icon: FileText },
 ];
 

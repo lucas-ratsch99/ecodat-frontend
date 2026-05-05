@@ -17,6 +17,8 @@ import Results from '@/pages/Results';
 import QC from '@/pages/QC';
 import GIS from '@/pages/GIS';
 import Reports from '@/pages/Reports';
+import AOReport from '@/pages/AOReport';
+import GrippAdmin from '@/pages/GrippAdmin';
 import Admin from '@/pages/Admin';
 import NotFound from '@/pages/not-found';
 
@@ -139,6 +141,22 @@ function Router() {
         <ProtectedRoute>
           <AppLayout>
             <Reports />
+          </AppLayout>
+        </ProtectedRoute>
+      </Route>
+
+      <Route path="/ao-report">
+        <ProtectedRoute>
+          <AppLayout>
+            <AOReport />
+          </AppLayout>
+        </ProtectedRoute>
+      </Route>
+
+      <Route path="/gripp-admin">
+        <ProtectedRoute>
+          <AppLayout>
+            <GrippAdmin />
           </AppLayout>
         </ProtectedRoute>
       </Route>

@@ -9,7 +9,6 @@ import { useToast } from '@/hooks/use-toast';
 import { Leaf, Loader2 } from 'lucide-react';
 
 export default function Login() {
-  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
@@ -18,11 +17,11 @@ export default function Login() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!email || !password) {
+
+    if (!password) {
       toast({
         title: 'Validation Error',
-        description: 'Please enter both email and password',
+        description: 'Please enter your password',
         variant: 'destructive',
       });
       return;
@@ -30,7 +29,7 @@ export default function Login() {
 
     setIsLoading(true);
     try {
-      await login(email, password);
+      await login(password);
       toast({
         title: 'Login Successful',
         description: 'Welcome to EcoData Platform',
@@ -39,7 +38,7 @@ export default function Login() {
     } catch {
       toast({
         title: 'Login Failed',
-        description: 'Invalid credentials',
+        description: 'Invalid password',
         variant: 'destructive',
       });
     } finally {
@@ -57,39 +56,28 @@ export default function Login() {
           <div>
             <CardTitle className="text-2xl font-semibold">EcoData Platform</CardTitle>
             <CardDescription className="mt-1">
-              Sign in to access the ecology data processing platform
+              Enter your password to access the ecology data processing platform
             </CardDescription>
           </div>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="you@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                data-testid="input-email"
-                autoComplete="email"
-              />
-            </div>
-            <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
               <Input
                 id="password"
                 type="password"
-                placeholder="Enter your password"
+                placeholder="Enter password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 data-testid="input-password"
                 autoComplete="current-password"
+                autoFocus
               />
             </div>
-            <Button 
-              type="submit" 
-              className="w-full" 
+            <Button
+              type="submit"
+              className="w-full"
               disabled={isLoading}
               data-testid="button-login"
             >

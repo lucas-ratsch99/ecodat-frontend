@@ -1,8 +1,9 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { api } from '@/api/client';
 import type { User, AuthState } from '@/types';
 
 interface AuthContextType extends AuthState {
-  login: (email: string, password: string) => Promise<void>;
+  login: (password: string) => Promise<void>;
   logout: () => void;
 }
 
@@ -16,40 +17,36 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   });
 
   useEffect(() => {
-    const token = localStorage.getItem('auth_token');
+    const token = localStorage.getItem('api_password');
     const userStr = localStorage.getItem('auth_user');
     if (token && userStr) {
       try {
         const user = JSON.parse(userStr) as User;
         setAuthState({ user, token, isAuthenticated: true });
       } catch {
-        localStorage.removeItem('auth_token');
+        localStorage.removeItem('api_password');
         localStorage.removeItem('auth_user');
       }
     }
   }, []);
 
-  const login = async (email: string, _password: string) => {
-    const mockUser: User = {
-      id: 'user-1',
-      email,
-      name: email.split('@')[0],
+  const login = async (password: string) => {
+    const result = await api.auth.login(password);
+    if (!result.ok) throw new Error('Login failed');
+
+    const user: User = {
+      id: 'shared',
+      email: 'ecodat@ecodat.nl',
+      name: 'Ecologist',
       role: 'admin',
     };
-    const mockToken = 'mock-jwt-token-' + Date.now();
-    
-    localStorage.setItem('auth_token', mockToken);
-    localStorage.setItem('auth_user', JSON.stringify(mockUser));
-    
-    setAuthState({
-      user: mockUser,
-      token: mockToken,
-      isAuthenticated: true,
-    });
+    localStorage.setItem('api_password', result.api_password);
+    localStorage.setItem('auth_user', JSON.stringify(user));
+    setAuthState({ user, token: result.api_password, isAuthenticated: true });
   };
 
   const logout = () => {
-    localStorage.removeItem('auth_token');
+    localStorage.removeItem('api_password');
     localStorage.removeItem('auth_user');
     setAuthState({ user: null, token: null, isAuthenticated: false });
   };
@@ -63,8 +60,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
 export function useAuth() {
   const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
+  if (!context) throw new Error('useAuth must be used within an AuthProvider');
   return context;
 }
